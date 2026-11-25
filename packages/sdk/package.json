@@ -1,0 +1,15 @@
+{
+  "name": "@backend-hub/sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Framework-agnostic immutable-versioned JavaScript SDK for Backend Hub static UIs.",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./errors": "./src/errors.js"
+  },
+  "files": [
+    "src/",
+    "dist/"
+  ]
+}

@@ -60,4 +60,4 @@ Before any production release, the responsible maintainer reviews:
 - Monitoring, alert ownership, backup age, and restore-test evidence.
 - Protected production approval and exact target environment.
 
-This repository currently contains architecture documentation only. Do not infer that any service, workflow, project, secret, or deployment has been provisioned.
+This repository includes a working local implementation (`supabase/migrations/`, `server/`, `packages/sdk/`, `examples/notes-app/`, `tests/`), CI validation (`.github/workflows/ci.yml`), and release/operations guides (`docs/`). No cloud service, Supabase project, secret, or hosted deployment has been provisioned.

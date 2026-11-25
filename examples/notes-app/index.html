@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backend Hub — Notes Demo App</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Backend Hub — Notes Demo</h1>
+        <p class="subtitle">
+          Static UI on its own origin pinned to immutable SDK <code>v0.1.0</code>.
+        </p>
+      </div>
+      <div id="health-status" class="health-pill">Checking backend...</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Authentication &amp; App Enrollment</h2>
+        <p id="auth-state" class="muted">Signed out (anonymous public-read mode)</p>
+        <div class="row">
+          <input id="auth-email" type="email" placeholder="alice@example.com" />
+          <input id="auth-password" type="password" placeholder="Password (min 8 chars)" />
+        </div>
+        <div class="actions">
+          <button id="btn-signup" type="button">Sign Up &amp; Enroll</button>
+          <button id="btn-login" type="button">Sign In</button>
+          <button id="btn-enroll" type="button" class="secondary">Enroll</button>
+          <button id="btn-logout" type="button" class="secondary">Sign Out</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>App-Scoped Profile</h2>
+        <div class="row">
+          <input id="profile-name" type="text" placeholder="Display name" />
+          <input id="profile-bio" type="text" placeholder="Bio in notes-demo" />
+        </div>
+        <div class="actions">
+          <button id="btn-save-profile" type="button">Save Profile</button>
+          <button id="btn-load-profile" type="button" class="secondary">Load Profile</button>
+        </div>
+        <pre id="profile-output" class="output">Not loaded</pre>
+      </section>
+
+      <section class="card wide">
+        <h2>App-Scoped Notes (<code>notes</code>)</h2>
+        <div class="row">
+          <input id="note-title" type="text" placeholder="Note title" />
+          <input id="note-body" type="text" placeholder="Note body" />
+          <select id="note-visibility">
+            <option value="private">private (owner/admin)</option>
+            <option value="app">app (active members)</option>
+            <option value="public">public (app-scoped public read)</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button id="btn-create-note" type="button">Create Note</button>
+          <button id="btn-list-notes" type="button" class="secondary">Refresh Notes</button>
+        </div>
+        <ul id="notes-list" class="list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Private File Storage</h2>
+        <div class="row">
+          <input id="file-input" type="file" />
+        </div>
+        <div class="actions">
+          <button id="btn-upload-file" type="button">Upload Private File</button>
+          <button id="btn-list-files" type="button" class="secondary">Refresh Files</button>
+        </div>
+        <ul id="files-list" class="list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Trusted Server Functions &amp; Quotas</h2>
+        <div class="actions">
+          <button id="btn-capabilities" type="button">App Capabilities &amp; Usage</button>
+          <button id="btn-summary" type="button" class="secondary">Run Trusted Summary</button>
+        </div>
+        <pre id="trusted-output" class="output">Invoke a trusted function to inspect server-scoped state.</pre>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

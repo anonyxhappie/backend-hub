@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backend Hub — Habits Tracker App</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Backend Hub — Habits Tracker (<code>habits-demo</code>)</h1>
+        <p class="subtitle">
+          Second isolated static UI on port <code>4101</code> pinned to immutable SDK <code>v0.1.0</code>.
+          Private-only (<code>allow_self_enroll = false</code>, <code>allow_public_read = false</code>).
+        </p>
+      </div>
+      <div id="health-status" class="health-pill">Checking habits-demo...</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Authentication</h2>
+        <p id="auth-state" class="muted">Signed out (habits-demo requires active membership)</p>
+        <div class="row">
+          <input id="auth-email" type="email" placeholder="alice.demo@example.com" />
+          <input id="auth-password" type="password" placeholder="Password" />
+        </div>
+        <div class="actions">
+          <button id="btn-login" type="button">Sign In</button>
+          <button id="btn-logout" type="button" class="secondary">Sign Out</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>App-Scoped Profile</h2>
+        <div class="row">
+          <input id="profile-name" type="text" placeholder="Display name in habits-demo" />
+          <input id="profile-bio" type="text" placeholder="Habit goal" />
+        </div>
+        <div class="actions">
+          <button id="btn-save-profile" type="button">Save Profile</button>
+          <button id="btn-load-profile" type="button" class="secondary">Load Profile</button>
+        </div>
+        <pre id="profile-output" class="output">Sign in to inspect your habits-demo profile.</pre>
+      </section>
+
+      <section class="card wide">
+        <h2>Habits &amp; Check-ins (<code>habits</code> / <code>checkins</code>)</h2>
+        <div class="row">
+          <input id="habit-title" type="text" placeholder="Habit title (e.g., 30m Walk)" />
+          <input id="habit-cadence" type="text" placeholder="Details / streak note" />
+          <select id="habit-collection">
+            <option value="habits">habits</option>
+            <option value="checkins">checkins</option>
+          </select>
+          <select id="habit-visibility">
+            <option value="private">private (owner/admin)</option>
+            <option value="app">app (enrolled members)</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button id="btn-create-habit" type="button">Save Entry</button>
+          <button id="btn-list-habits" type="button" class="secondary">Refresh Entries</button>
+        </div>
+        <ul id="habits-list" class="list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Private Habit Files (<code>habits-files</code>)</h2>
+        <div class="row">
+          <input id="file-input" type="file" />
+        </div>
+        <div class="actions">
+          <button id="btn-upload-file" type="button">Upload Private File</button>
+          <button id="btn-list-files" type="button" class="secondary">Refresh Files</button>
+        </div>
+        <ul id="files-list" class="list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>App Capabilities &amp; Health</h2>
+        <div class="actions">
+          <button id="btn-capabilities" type="button">Inspect Capabilities</button>
+        </div>
+        <pre id="caps-output" class="output">Sign in to inspect habits-demo limits and usage.</pre>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

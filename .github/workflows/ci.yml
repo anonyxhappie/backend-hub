@@ -1,0 +1,49 @@
+name: CI Validation
+
+# NOTE: This workflow performs validation checks ONLY.
+# It intentionally does NOT deploy, create cloud/Supabase projects, create secrets,
+# or mutate staging/production environments.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify immutable SDK bundle is up to date
+        run: |
+          npm run build:sdk
+          git diff --exit-code packages/sdk/dist/
+
+      - name: Lint and static security checks
+        run: npm run lint
+
+      - name: Format and JSON checks
+        run: npm run format:check
+
+      - name: Validate migrations and backup/restore drill
+        run: npm run test:migrations
+
+      - name: Run adversarial RLS, storage, and quota security tests
+        run: npm run test:security
+
+      - name: Run SDK and end-to-end integration tests
+        run: npm run test:e2e

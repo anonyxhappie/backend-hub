@@ -1,0 +1,25 @@
+# Supabase local development configuration (non-production).
+# Do not store secrets or production project references here.
+project_id = "backend-hub-local"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public"]
+max_rows = 200
+
+[db]
+port = 54322
+major_version = 16
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:4100"
+additional_redirect_urls = ["http://localhost:4100", "http://127.0.0.1:4101", "http://localhost:4101"]
+jwt_expiry = 900
+enable_signup = true
+
+[storage]
+enabled = true
+file_size_limit = "2MiB"

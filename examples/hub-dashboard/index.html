@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backend Hub — Portfolio Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Backend Hub — Portfolio Dashboard</h1>
+        <p class="subtitle">
+          Single operational view of app health, memberships, quotas, and usage across your static apps.
+          Pinned to SDK <code>v0.1.0</code>; uses no service-role keys.
+        </p>
+      </div>
+      <div id="hub-health" class="health-pill">Checking Hub...</div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Operator / Member Sign In</h2>
+        <p id="auth-state" class="muted">Signed out</p>
+        <div class="row">
+          <input id="auth-email" type="email" placeholder="alice.demo@example.com" />
+          <input id="auth-password" type="password" placeholder="Password" />
+        </div>
+        <div class="actions">
+          <button id="btn-login" type="button">Sign In &amp; Load Portfolio</button>
+          <button id="btn-refresh" type="button" class="secondary">Refresh Portfolio</button>
+          <button id="btn-logout" type="button" class="secondary">Sign Out</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Direct App Health Probe</h2>
+        <p class="muted">Calls <code>GET /functions/v1/health?appId=...</code> for any registered app slug.</p>
+        <div class="row">
+          <input id="probe-app-id" type="text" value="habits-demo" placeholder="app-id (e.g. notes-demo)" />
+        </div>
+        <div class="actions">
+          <button id="btn-probe" type="button">Check App Health</button>
+        </div>
+        <pre id="probe-output" class="output">Run a probe to inspect per-app readiness.</pre>
+      </section>
+
+      <section class="card wide">
+        <h2>Enrolled Apps Health, Usage &amp; Quotas</h2>
+        <p class="muted">Shows only apps where the signed-in account holds an active membership.</p>
+        <div id="apps-container" class="apps-grid">
+          <p class="muted">Sign in above to inspect your portfolio apps.</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

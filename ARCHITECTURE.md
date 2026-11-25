@@ -1,6 +1,6 @@
 # Backend Hub Architecture
 
-**Status:** Initial architecture baseline  
+**Status:** Local & portable foundation implemented (`supabase/migrations/`, `server/`, `packages/sdk/`, `examples/notes-app/`, `tests/`). Hosted cloud resources remain unprovisioned.
 **Scope:** Shared backend for a portfolio target of 10–20 independent static UI applications.
 
 ## Goals and constraints
@@ -87,11 +87,9 @@ Document provider backup coverage, frequency, retention, recovery point and time
 
 ## Phased delivery
 
-1. Verify provider terms and no-card/$0 feasibility; choose environment and origin strategy.
-2. Specify app-context issuance and test its trust assumptions before the first schema migration.
-3. Implement minimal schema, RLS, storage policies, and adversarial integration tests.
-4. Build and version the SDK; pin it from a first static UI.
-5. Add serialized staging migration workflow and protected production release controls only after the process is tested.
-6. Add quotas, monitoring, backup/restore evidence, and operational ownership before onboarding real users.
+1. **Completed:** Verified Supabase Free Plan terms (`2026-11-25`, see [docs/operations-and-recovery.md](docs/operations-and-recovery.md)) and documented app-context trust limits ([ADR 0002](docs/adr/0002-app-context-and-local-runtime.md)).
+2. **Completed:** Implemented ordered migrations (`0001`–`0005`), RLS, private storage & atomic quota reservations, local Hub runtime (`server/`), and adversarial security/migration tests (`tests/`).
+3. **Completed:** Built immutable-versioned SDK (`packages/sdk/dist/backend-hub-sdk-0.1.0.mjs`), pinned from `examples/notes-app/`, and added non-deploying CI validation (`.github/workflows/ci.yml`).
+4. **Future (before hosted production):** Provision separate staging/production projects, wire serialized staging migration workflow + protected production approvals ([docs/environments-and-releases.md](docs/environments-and-releases.md)), verify live hosted burst rate limits, and schedule external backup/restore drills.
 
-This document is a design baseline, not evidence that any cloud resource exists or that provider limits have been verified.
+This document reflects the implemented repository foundation; no cloud project, hosted database, or production deployment has been provisioned.

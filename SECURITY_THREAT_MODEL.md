@@ -1,6 +1,6 @@
 # Security Threat Model
 
-**Status:** Initial design baseline. This is not a completed security assessment or evidence of implementation.
+**Status:** Controls implemented and verified in local PGlite/Node integration tests (`tests/rls-adversarial.test.js`, `tests/storage-adversarial.test.js`, `tests/functions-and-quotas.test.js`). Hosted Supabase deployment parity and live burst load testing remain unverified until staging provisioning.
 
 ## Assets
 
@@ -44,8 +44,9 @@
 
 ## Residual risks
 
-- All applications sharing one backend share operational and capacity failure domains.
+- All applications sharing one backend share operational and capacity failure domains (including Supabase Free Plan's 500 MB DB, 1 GB storage, 5 GB egress, and 7-day inactivity pause).
 - An app with a shared origin may compromise another app's browser session or data accessible from that origin even when database policy is correct.
-- Public static clients cannot keep a shared secret; app identification is not proof of authorization.
-- Provider terms, free-tier limits, and backup features can change. The $0/no-card goal may force reduced features, capacity, or a pause.
-- This model must be updated when provider, origin, authentication, SDK, data classification, or deployment choices change.
+- Public static clients cannot keep a shared secret; app identification and `Origin` checks are routing/browser boundaries, not proof against direct non-browser callers holding valid user credentials for multiple apps.
+- Supabase Free Plan lacks automated daily backups; external logical exports and tested restores are mandatory before storing important data.
+- Provider terms and limits (`2026-11-25`) can change. The $0/no-card goal may force reduced features, self-hosting, or a pause.
+- Hosted Supabase PostgREST uses standard user JWTs unless paired with an Edge Function / gateway or custom JWT claims matching `hub_auth.current_app_id()`. Do not expose PostgREST directly in hosted mode without verifying that `app_ctx_verified` and `app_id` cannot be omitted or forged.
